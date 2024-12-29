@@ -1,0 +1,19 @@
+# A template for this file that also includes other options can be found in jellyfin docs
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    network_mode: 'host'
+    volumes:
+      - $PWD/config:/config
+      - $PWD/cache:/cache
+      - $PWD/webconfig/config.json  
+      - type: bind
+        source: $PWD/media #symlink to media folder
+        target: /media
+    restart: 'unless-stopped'
+
+
+
+      
+    
