@@ -1,0 +1,20 @@
+# Where you want the .csv file of your Letterboxd activity to be saved.
+root_folder = "~/Documents/letterboxd_stats/"
+
+[CLI]
+# The size of the ASCII art poster printed in your terminal when you check the details of a movie.
+# Set to 0 to disable
+poster_columns = 180
+# Set ascending order for sorting of tables
+ascending = false
+
+[TMDB]
+api_key = "YOUR_TMDB_API_KEY"
+# When you get your lists (-L options), also get all the runtimes from TMDB
+# and compute the mean of the ratings weigthed on the durations. This slows the process.
+get_list_runtimes = false
+
+
+[Letterboxd]
+username = "your-username"
+password = "your-password"
