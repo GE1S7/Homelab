@@ -1,0 +1,12 @@
+services:
+  letterboxd_stats:
+    image: letterboxd_stats
+    container_name: letterboxd_stats
+    network_mode: 'host'
+    tty: true
+    volumes:
+      - type: bind
+        source: $PWD/config
+        target: /home/app_user/.config/letterboxd_stats/
+    command: letterboxd_stats -d
+    restart: 'unless-stopped'
