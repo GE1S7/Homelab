@@ -1,0 +1,26 @@
+services:
+# A template for this file that also includes other options can be found in jellyfin docs
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    network_mode: 'host'
+    volumes:
+      - $PWD/config:/config
+      - $PWD/cache:/cache
+      - $PWD/webconfig/config.json  
+      - type: bind
+        source: $PWD/media #symlink to media folder
+        target: /media
+    restart: 'unless-stopped'
+
+  letterboxd_stats:
+    image: letterboxd_stats
+    container_name: letterboxd_stats
+    network_mode: 'host'
+    tty: true
+    volumes:
+      - type: bind
+        source: $PWD/config
+        target: /home/app_user/.config/letterboxd_stats/
+    command: letterboxd_stats -d
+    restart: 'unless-stopped'
