@@ -6,7 +6,7 @@ services:
     tty: true
     volumes:
       - type: bind
-        source: $PWD/config
+        source: ./config/
         target: /home/app_user/.config/letterboxd_stats/
     command: letterboxd_stats -d
     restart: 'unless-stopped'
