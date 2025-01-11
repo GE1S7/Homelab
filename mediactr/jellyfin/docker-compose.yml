@@ -7,7 +7,7 @@ services:
     volumes:
       - ./config:/config
       - ./cache:/cache
-      - ./webconfig/config.json  
+      - ./webconfig/:/webconfig  
       - type: bind
         source: ./media/ #symlink to media folder
         target: /media

@@ -5,11 +5,11 @@ services:
     container_name: jellyfin
     network_mode: 'host'
     volumes:
-      - ./config:/config
-      - ./cache:/cache
-      - ./webconfig/config.json  
+      - ./jellyfin/config:/config
+      - ./jellyfin/cache:/cache
+      - ./jellyfin/webconfig:/webconfig 
       - type: bind
-        source: ./media #symlink to media folder
+        source: ./jellyfin/media #symlink to media folder
         target: /media
     restart: 'unless-stopped'
 
