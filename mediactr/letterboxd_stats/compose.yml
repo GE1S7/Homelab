@@ -8,5 +8,8 @@ services:
       - type: bind
         source: ./config/
         target: /home/app_user/.config/letterboxd_stats/
-    command: letterboxd_stats -d
+      - type: bind
+        source: ../scripts/
+        target: /scripts/
+    command: letterboxd_stats -d; tail -f /dev/null
     restart: 'unless-stopped'
