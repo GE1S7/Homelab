@@ -1,5 +1,0 @@
-FROM ubuntu
-USER root
-RUN  apt-get -y update; apt-get -y install curl php python3 pipx; curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar; chmod +x wp-cli.phar; mv wp-cli.phar /usr/local/bin/wp; pipx install setuptools; easy_install twitter
-
-# RUN bash; apt-get update -y; apt-get update -y; apt-get -y php php-cli php-fpm php-json php-common php-mysql php-zip php-gd php-mbstring php-curl php-xml php-pear php-bcmath; curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar; chmod +x wp-cli.phar; mv wp-cli.phar /usr/local/bin/wp
