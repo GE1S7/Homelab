@@ -7,6 +7,12 @@ services:
     volumes:
       - workdir:/opt/adguardhome/work
       - confdir:/opt/adguardhome/conf
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
 volumes:
   workdir:
+    driver: local
   confdir:
+    driver: local
+
