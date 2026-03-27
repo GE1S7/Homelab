@@ -1,0 +1,17 @@
+services:
+    zigbee2mqtt:
+        container_name: zigbee2mqtt
+        image: ghcr.io/koenkk/zigbee2mqtt
+        restart: unless-stopped
+        volumes:
+            - ./data:/app/data
+            - /run/udev:/run/udev:ro
+        ports:
+            # Frontend port
+            - 8084:8080
+            - 8085:8085
+        environment:
+            - TZ=Europe/Warsaw
+        devices:
+            # Make sure this matched your adapter location
+            - /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0:/dev/ttyUSB0
