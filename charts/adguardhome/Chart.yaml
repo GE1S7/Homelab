@@ -5,4 +5,4 @@ version: 0.0.1
 dependencies:
   - name: adguard-home
     repository: oci://ghcr.io/helmforgedev/helm
-    version: 1.5.1
+    version: 1.5.2
