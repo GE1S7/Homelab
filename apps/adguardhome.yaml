@@ -21,7 +21,3 @@ spec:
     path: charts/adguardhome
     repoURL: https://github.com/GE1S7/Homelab.git
     targetRevision: HEAD
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-
