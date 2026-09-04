@@ -5,7 +5,7 @@ metadata:
     argocd.argoproj.io/tracking-id: apps:argoproj.io/Application:argocd/adguardhome
   labels:
     argocd.argoproj.io/instance: apps
-  name: adguardhome
+  name: adguard-home
   namespace: argocd
 spec:
   destination:
@@ -17,6 +17,7 @@ spec:
     helm:
       valueFiles:
         - values.yaml
+      ignoreMissingValueFiles: true
       values: ""
     path: charts/adguardhome
     repoURL: https://github.com/GE1S7/Homelab.git
