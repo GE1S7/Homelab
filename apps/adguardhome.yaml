@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/tracking-id: apps:argoproj.io/Application:argocd/adguardhome
+  labels:
+    argocd.argoproj.io/instance: apps
+  name: adguardhome
+  namespace: argocd
+spec:
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    chart: ""
+    helm:
+      valueFiles:
+        - values.yaml
+        - secrets://secrets.yaml
+      values: ""
+    path: charts/adguardhome
+    repoURL: https://github.com/GE1S7/Homelab.git
+    targetRevision: HEAD
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+
