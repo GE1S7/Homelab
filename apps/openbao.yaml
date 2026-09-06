@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/tracking-id: apps:argoproj.io/Application:argocd/adguardhome
+  labels:
+    argocd.argoproj.io/instance: apps
+  name: open-bao
+  namespace: argocd
+spec:
+  destination:
+    namespace: openbao
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    chart: ""
+    helm:
+      valueFiles:
+        - values.yaml
+      ignoreMissingValueFiles: true
+      values: ""
+    path: charts/openbao
+    repoURL: https://openbao.github.io/openbao-helm
+    targetRevision: HEAD
+
