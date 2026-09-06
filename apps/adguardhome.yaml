@@ -17,7 +17,6 @@ spec:
     helm:
       valueFiles:
         - values.yaml
-      ignoreMissingValueFiles: true
       values: ""
     path: charts/adguardhome
     repoURL: https://github.com/GE1S7/Homelab.git
