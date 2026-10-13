@@ -84,7 +84,6 @@ adguard-home:
       # schema_version: 29
 
     # -- Existing secret containing AdGuardHome.yaml (key: AdGuardHome.yaml)
-    existingSecret: ""
 
   # =============================================================================
   # Persistence
