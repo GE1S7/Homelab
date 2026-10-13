@@ -68,6 +68,7 @@ Not deployed and not a source of truth. Kept for reference.
 | Service | Runtime | Location | Status |
 |---|---|---|---|
 | AdGuard Home | k3s | `charts/adguardhome` | Active |
+| Home Assistant | k3s | `charts/homeassistant` | Active |
 | Jellyfin | Docker Compose | `mediactr/` | Active, migration pending |
 | letterboxd-stats | Docker Compose | `mediactr/` | Broken (upstream archived) |
 | zigbee2mqtt | Docker Compose | `legacy/zigbee2mqtt` | Retired |
@@ -78,6 +79,9 @@ Network-wide DNS ad blocking. DNS (`:53`) is exposed on the tailnet through
 Tailscale, and Tailscale uses it as the tailnet's DNS provider. The web UI is
 exposed privately through the Tailscale operator
 (`tailscale.com/expose: "true"`).
+
+### Home Assistant
+Open-source home automation platform.
 
 ### Media center (`mediactr`)
 Downloaded media gets subtitles from subliminal and is served by Jellyfin.
