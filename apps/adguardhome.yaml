@@ -12,7 +12,7 @@ spec:
     namespace: default
     server: https://kubernetes.default.svc
   project: default
-  source:
+  sources:
     chart: ""
     helm:
       valueFiles:
