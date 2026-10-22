@@ -15,7 +15,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
 
-  source:
+  sources:
     - repoURL: https://github.com/GE1S7/Homelab.git
       chart: ""
       helm:
