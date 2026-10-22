@@ -25,5 +25,5 @@ spec:
       path: charts/homeassistant
       targetRevision: HEAD
     - repoURL: https://github.com/GE1S7/Homelab.git
-      targetRevision: HEAD
+      targetRevision: main
       path: manifests/homeassistant
