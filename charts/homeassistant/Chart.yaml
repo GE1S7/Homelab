@@ -4,5 +4,8 @@ type: application
 version: 0.0.1
 dependencies:
   - name: home-assistant
+<<<<<<< HEAD
     repository: oci://ghcr.io/pajikos/charts
     version: 0.3.85
+=======
+>>>>>>> home-assistant
