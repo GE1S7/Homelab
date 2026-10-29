@@ -21,6 +21,7 @@ spec:
       helm:
         valueFiles:
           - values.yaml
+          - secrets://secrets.yaml
         values: ""
       path: charts/homeassistant
       targetRevision: HEAD
