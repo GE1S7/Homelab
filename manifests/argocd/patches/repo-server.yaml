@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-repo-server
+  namespace: argocd
+spec:
+  template:
+    spec:
+      initContainers:
+        - name: download-tools
+          image: alpine:latest
+          imagePullPolicy: Always
+          command:
+            - sh
+            - -euc
+          args:
+            - |
+              mkdir -p "${HELM_PLUGINS}"
+              export GO_ARCH=$(uname -m | sed -e 's/x86_64/amd64/' -e 's/aarch64/arm64/')
+              wget -qO "${HELM_SECRETS_SOPS_PATH}" \
+                "https://github.com/getsops/sops/releases/download/v${SOPS_VERSION}/sops-v${SOPS_VERSION}.linux.${GO_ARCH}"
+              for pkg in secrets secrets-getter; do
+                wget -qO- "https://github.com/jkroepke/helm-secrets/releases/download/v${HELM_SECRETS_VERSION}/${pkg}-${HELM_SECRETS_VERSION}.tgz" \
+                  | tar -C "${HELM_PLUGINS}" -xzf-
+              done
+              chmod +x "${HELM_SECRETS_SOPS_PATH}"
+          env:
+            - name: HELM_SECRETS_VERSION
+              value: "4.7.10"
+            - name: SOPS_VERSION
+              value: "3.13.3"
+            - name: HELM_PLUGINS
+              value: /gitops-tools/helm-plugins/
+            - name: HELM_SECRETS_SOPS_PATH
+              value: /gitops-tools/sops
+          volumeMounts:
+            - name: gitops-tools
+              mountPath: /gitops-tools
+
+      containers:
+        - name: argocd-repo-server
+          env:
+            - name: HELM_PLUGINS
+              value: /gitops-tools/helm-plugins/
+            - name: HELM_SECRETS_BACKEND
+              value: sops
+            - name: HELM_SECRETS_ALLOWED_BACKENDS
+              value: sops
+            - name: HELM_SECRETS_SOPS_PATH
+              value: /gitops-tools/sops
+            - name: HELM_SECRETS_VALUES_ALLOW_ABSOLUTE_PATH
+              value: "true"
+            - name: HELM_SECRETS_DECRYPT_SECRETS_IN_TMP_DIR
+              value: "true"
+            - name: SOPS_AGE_KEY_FILE
+              value: /helm-secrets-private-keys/key.txt
+          volumeMounts:
+            - name: gitops-tools
+              mountPath: /gitops-tools
+            - name: helm-secrets-private-keys
+              mountPath: /helm-secrets-private-keys
+
+      volumes:
+        - name: gitops-tools
+          emptyDir: {}
+        - name: helm-secrets-private-keys
+          secret:
+            secretName: helm-secrets-private-keys
