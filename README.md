@@ -24,6 +24,7 @@ still on Docker Compose while I migrate them to k3s, see
 | Private access and DNS | Tailscale Kubernetes operator; Tailscale VPN (SSH, tailnet DNS) |
 | Local load balancer | MetalLB, pool `192.168.8.96/27` (reserved for future use) |
 | Legacy workloads | Docker Compose |
+| Secrets | SOPS + age |
 
 ## Repository layout
 
@@ -45,8 +46,9 @@ chart, plus a `values.yaml` with my overrides. Example: `charts/adguardhome`.
 
 ### `manifests/`
 Plain Kubernetes manifests, for cases where a Helm chart would be overkill.
-These are currently applied by hand with `kubectl apply`, see [TODO](#todo).
+`manifests/argocd` is managed by ArgoCD itself; the rest are applied by hand with `kubectl apply`, see [TODO](#todo).
 
+- `argocd/`: ArgoCD install base (upstream manifest + Kustomize patches for Helm Secrets)
 - `metallb/`: `IPAddressPool` for local LoadBalancer IPs
 - `tailscale/`: Tailscale `ProxyGroup` for ingress
 
@@ -68,6 +70,7 @@ Not deployed and not a source of truth. Kept for reference.
 | Service | Runtime | Location | Status |
 |---|---|---|---|
 | AdGuard Home | k3s | `charts/adguardhome` | Active |
+| Home Assistant | k3s | `charts/homeassistant` | Active |
 | Jellyfin | Docker Compose | `mediactr/` | Active, migration pending |
 | letterboxd-stats | Docker Compose | `mediactr/` | Broken (upstream archived) |
 | zigbee2mqtt | Docker Compose | `legacy/zigbee2mqtt` | Retired |
@@ -78,6 +81,9 @@ Network-wide DNS ad blocking. DNS (`:53`) is exposed on the tailnet through
 Tailscale, and Tailscale uses it as the tailnet's DNS provider. The web UI is
 exposed privately through the Tailscale operator
 (`tailscale.com/expose: "true"`).
+
+### Home Assistant
+Open-source home automation platform.
 
 ### Media center (`mediactr`)
 Downloaded media gets subtitles from subliminal and is served by Jellyfin.
@@ -100,7 +106,10 @@ download -> subliminal -> Jellyfin -> Trakt -> letterboxd-stats -> Letterboxd
    - `values.yaml` with overrides, nested under the dependency name
 2. Copy `apps/adguardhome.yaml` to `apps/<name>.yaml` and change the `name`,
    destination `namespace` and `path`.
-3. Commit to `main` (or merge a pull request). The parent `apps` Application in
+3. If the chart needs secrets: create `charts/<name>/secrets.yaml` with
+   `sops --encrypt --age <recipient> values-plain.yaml > secrets.yaml` and add
+   `secrets://secrets.yaml` to `valueFiles` in the app manifest.
+4. Commit to `main` (or merge a pull request). The parent `apps` Application in
    ArgoCD watches `apps/` and creates the new Application, which then syncs the
    chart.
 
@@ -108,5 +117,6 @@ download -> subliminal -> Jellyfin -> Trakt -> letterboxd-stats -> Letterboxd
 
 - [ ] ArgoCD Applications for `manifests/metallb` and `manifests/tailscale`
 - [ ] Bring the Tailscale exposure of AdGuard DNS under GitOps
-- [ ] Encrypted secrets in git (SOPS)
+- [x] Encrypted secrets in git (SOPS)
+- [x] ArgoCD install base under GitOps (`manifests/argocd`)
 - [ ] Migrate `mediactr` to k3s
