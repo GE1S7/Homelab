@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/tracking-id: apps:argoproj.io/Application:argocd/prometheus
+  labels:
+    argocd.argoproj.io/instance: apps
+  name: prometheus
+  namespace: argocd
+spec:
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    chart: ""
+    helm:
+      valueFiles:
+        - values.yaml
+        - secrets://secrets.yaml
+      values: ""
+    path: charts/prometheus
+    repoURL: https://github.com/GE1S7/Homelab.git
+    targetRevision: HEAD
