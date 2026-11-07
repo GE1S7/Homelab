@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/tracking-id: apps:argoproj.io/Application:argocd/zigbee2mqtt
+  labels:
+    argocd.argoproj.io/instance: apps
+  name: zigbee2mqtt
+  namespace: argocd
+spec:
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    chart: ""
+    helm:
+      valueFiles:
+        - values.yaml
+      values: ""
+    path: charts/zigbee2mqtt
+    repoURL: https://github.com/GE1S7/Homelab.git
+    targetRevision: HEAD
