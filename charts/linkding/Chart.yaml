@@ -1,0 +1,8 @@
+apiVersion: v2
+name: linkding
+type: application
+version: 0.0.1
+dependencies:
+  - name: linkding
+    repository: https://charts.pascaliske.dev
+    version: 3.0.0

@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  annotations:
+    argocd.argoproj.io/tracking-id: apps:argoproj.io/Application:argocd/linkding
+  labels:
+    argocd.argoproj.io/instance: apps
+  name: linkding
+  namespace: argocd
+
+spec:
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  project: default
+
+  sources:
+    - repoURL: https://github.com/GE1S7/Homelab.git
+      chart: ""
+      helm:
+        valueFiles:
+          - values.yaml
+          - secrets://secrets.yaml
+        values: ""
+      path: charts/linkding
+      targetRevision: HEAD
+    - repoURL: https://github.com/GE1S7/Homelab.git
+      targetRevision: main
+      path: manifests/linkding
