@@ -31,7 +31,7 @@ linkding:
     # -- Create a service for exposing this chart.
     enabled: true
     # -- The service type used.
-    type: ClusterIP
+    type: LoadBalancer
     # -- ClusterIP used if service type is `ClusterIP`.
     clusterIP: ''
     # -- LoadBalancerIP if service type is `LoadBalancer`.
