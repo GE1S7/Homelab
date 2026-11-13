@@ -18,5 +18,5 @@ spec:
           service:
             name: promtheus
             port:
-              number: 9090
+              number: 8080
 
