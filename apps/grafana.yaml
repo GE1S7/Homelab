@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  annotations:
+    argocd.argoproj.io/tracking-id: apps:argoproj.io/Application:argocd/grafana
+  labels:
+    argocd.argoproj.io/instance: apps
+  name: grafana
+  namespace: argocd
+
+spec:
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  project: default
+
+  sources:
+    - repoURL: https://github.com/GE1S7/Homelab.git
+      chart: ""
+      helm:
+        valueFiles:
+          - values.yaml
+          - secrets://secrets.yaml
+        values: ""
+      path: charts/grafana
+      targetRevision: HEAD
+    - repoURL: https://github.com/GE1S7/Homelab.git
+      targetRevision: main
+      path: manifests/grafana
