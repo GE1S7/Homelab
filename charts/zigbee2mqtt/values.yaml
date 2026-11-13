@@ -115,12 +115,18 @@ zigbee2mqtt:
     #  - configMapRef:
     #      name: my-config-map
     # -- Additional volumeMounts to the server main container
-    volumeMounts: []
+    volumeMounts:
+      - name: zigbee-usb
+        mountPath: /dev/ttyUSB0
     #  - mountPath: /usr/local/bin/my-binary
     #    name: custom-tools
     #    subPath: my-binary
     # -- Additional volumes to the server pod
-    volumes: []
+    volumes: 
+      - name: zigbee-usb
+        hostPath:
+          path: /dev/serial/by-id/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
+          type: CharDevice
     #  - name: custom-tools
     #    emptyDir: {}
   zigbee2mqtt:
@@ -180,7 +186,7 @@ zigbee2mqtt:
       # USB adapters - use format "port: /dev/ttyACM0"
       # To autodetect the USB port, set 'port: null'.
       # Ethernet adapters - use format "port: tcp://192.168.1.12:6638"
-      port: "/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0"
+      port: /dev/ttyUSB0
       # -- Optional: disable LED of the adapter if supported (default: false)
       disable_led: false
       # -- Optional: adapter type, not needed unless you are experiencing problems (default: shown below, options: zstack, deconz, ezsp)
