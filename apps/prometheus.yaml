@@ -12,12 +12,16 @@ spec:
     namespace: default
     server: https://kubernetes.default.svc
   project: default
-  source:
-    chart: ""
-    helm:
-      valueFiles:
-        - values.yaml
-      values: ""
-    path: charts/prometheus
-    repoURL: https://github.com/GE1S7/Homelab.git
-    targetRevision: HEAD
+  sources:
+    - repoURL: https://github.com/GE1S7/Homelab.git
+      chart: ""
+      helm:
+        valueFiles:
+          - values.yaml
+          - secrets://secrets.yaml
+        values: ""
+      path: charts/prometheus
+      targetRevision: HEAD
+    - repoURL: https://github.com/GE1S7/Homelab.git
+      targetRevision: main
+      path: manifests/prometheus
