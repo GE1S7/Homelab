@@ -17,6 +17,7 @@ spec:
     helm:
       valueFiles:
         - values.yaml
+        - secrets://secrets.yaml
       values: ""
     path: charts/zigbee2mqtt
     repoURL: https://github.com/GE1S7/Homelab.git
