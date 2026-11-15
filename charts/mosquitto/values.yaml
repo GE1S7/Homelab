@@ -45,7 +45,7 @@ mosquitto:
     runAsUser: 1883
 
   service:
-    type: ClusterIP
+    type: LoadBalancer
     mqttPort: 1883
     mqttOverWebsocketPort: 9001 
 
