@@ -1,0 +1,8 @@
+apiVersion: v2
+name: ntfy
+type: application
+version: 0.1.0
+dependencies:
+  - name: ntfy
+    repository: oci://ghcr.io/helmforgedev/helm
+    version: 1.8.0

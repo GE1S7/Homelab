@@ -1,0 +1,11 @@
+ntfy:
+  ntfy:
+    baseUrl: https://nfty.tuxedo-bonytongue.ts.net
+    enableMetrics: true
+  persistence:
+    enabled: true
+    size: 2Gi
+    emptyDirSizeLimit: 1Gi
+  metrics:
+    serviceMonitor:
+      enabled: true
