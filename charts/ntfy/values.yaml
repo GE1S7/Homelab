@@ -8,4 +8,4 @@ ntfy:
     emptyDirSizeLimit: 1Gi
   metrics:
     serviceMonitor:
-      enabled: true
+      enabled: false
