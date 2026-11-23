@@ -16,7 +16,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: ntfy
+            name: ntfy-ntfy
             port:
               number: 80
 
