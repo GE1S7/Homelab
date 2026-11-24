@@ -56,7 +56,7 @@ chart, plus a `values.yaml` with custom overrides. Encrypted values are stored i
 ### `manifests/`
 Plain Kubernetes manifests:
 - `argocd/`: ArgoCD install base (upstream manifest + Kustomize patches for Helm Secrets)
-- `<app>/ingress.yaml`: Tailscale Ingress resources for applications (`grafana`, `homeassistant`, `linkding`, `prometheus`)
+- `<app>/ingress.yaml`: Tailscale Ingress resources for applications (`grafana`, `homeassistant`, `linkding`, `ntfy`, `prometheus`)
 - `metallb/`: `IPAddressPool` for local LoadBalancer IPs
 - `tailscale/`: Tailscale `ProxyGroup` for ingress
 
@@ -82,6 +82,7 @@ Not deployed and not a source of truth. Kept for reference.
 | Mosquitto | k3s | `charts/mosquitto` | Active |
 | Zigbee2MQTT | k3s | `charts/zigbee2mqtt` | Active |
 | Linkding | k3s | `charts/linkding` | Active |
+| ntfy | k3s | `charts/ntfy` | Active |
 | Prometheus | k3s | `charts/prometheus` | Active |
 | Grafana | k3s | `charts/grafana` | Active |
 | Jellyfin | Docker Compose | `mediactr/` | Active, migration pending |
@@ -103,6 +104,9 @@ via an Ingress using the `ingress-proxies` ProxyGroup.
 
 ### Linkding
 Lightweight self-hosted bookmark manager with tagging and archive search, exposed over Tailscale Ingress.
+
+### ntfy
+Self-hosted push notification service. Exposes its web interface over Tailscale via an Ingress.
 
 ### Monitoring (Prometheus & Grafana)
 - **Prometheus**: Scrapes and stores node and Kubernetes cluster metrics.
